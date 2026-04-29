@@ -22,16 +22,10 @@ android {
 
     signingConfigs {
         create("release") {
-            val ksPath = System.getenv("KEYSTORE_BASE64")
-            val ksFile = file("${layout.buildDirectory.get()}/ci.keystore")
-            if (ksPath != null && !ksFile.exists()) {
-                ksFile.parentFile.mkdirs()
-                ksFile.writeBytes(java.util.Base64.getDecoder().decode(ksPath))
-            }
-            storeFile = if (ksPath != null) ksFile else file(".signing/dog-bark-detector.keystore")
-            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "dogbarkdetector"
-            keyAlias = System.getenv("KEY_ALIAS") ?: "dogbarkdetector"
-            keyPassword = System.getenv("KEY_PASSWORD") ?: "dogbarkdetector"
+            storeFile = file("../.signing/dog-bark-detector.keystore")
+            storePassword = "dogbarkdetector"
+            keyAlias = "dogbarkdetector"
+            keyPassword = "dogbarkdetector"
         }
     }
 
