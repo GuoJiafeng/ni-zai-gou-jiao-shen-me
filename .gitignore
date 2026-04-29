@@ -18,9 +18,6 @@ local.properties
 *.class
 *.kt.swp
 
-# Gradle wrapper jar (CI auto-generates)
-gradle/wrapper/gradle-wrapper.jar
-
 # APKs (generated)
 *.apk
 *.aab
