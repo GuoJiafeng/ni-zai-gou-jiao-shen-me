@@ -11,12 +11,27 @@ android {
         applicationId = "com.vibecode.dogbarkdetector"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = (System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull() ?: 1)
+        versionName = "1.${System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull()?.minus(1) ?: 0}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            val ksPath = System.getenv("KEYSTORE_BASE64")
+            val ksFile = file("${layout.buildDirectory.get()}/ci.keystore")
+            if (ksPath != null && !ksFile.exists()) {
+                ksFile.parentFile.mkdirs()
+                ksFile.writeBytes(java.util.Base64.getDecoder().decode(ksPath))
+            }
+            storeFile = if (ksPath != null) ksFile else file(".signing/dog-bark-detector.keystore")
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "dogbarkdetector"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "dogbarkdetector"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "dogbarkdetector"
         }
     }
 
@@ -27,6 +42,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
