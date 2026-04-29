@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">你在狗叫什么？</string>
+    <string name="monitoring_channel_name">狗叫监控</string>
+    <string name="monitoring_channel_description">狗叫检测前台服务通知</string>
+    <string name="monitoring_notification_title">你在狗叫什么？正在监控</string>
+    <string name="monitoring_notification_text">YAMNet 音频分类正在运行中</string>
+</resources>
