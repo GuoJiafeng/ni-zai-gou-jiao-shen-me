@@ -17,7 +17,6 @@ local.properties
 
 # Kotlin
 *.class
-*.jar
 *.kt.swp
 
 # APKs (generated)
